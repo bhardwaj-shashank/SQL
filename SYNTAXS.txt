@@ -1,0 +1,61 @@
+SELECT first_name,last_name FROM patients where allergies IS null;                                                 // no allergies
+SELECT first_name FROM patients where first_name LIKE 'C%';                                                        // first name starts with c
+SELECT first_name,last_name FROM patients where weight between 100 and 120;                                        // between 100 and 200
+SELECT first_name,last_name FROM patients WHERE weight >= 100 AND weight <= 120;                                   // between 100 and 200
+UPDATE patients SET allergies = 'NKA' WHERE allergies is NULL;                   // insert NKA in null values
+SELECT CONCAT(first_name,' ', last_name) AS full_name FROM patients;             // view names and last together
+SELECT first_name || ' ' || last_name FROM patients;                             // view names and last together
+select first_name,last_name,province_name from patients join
+ province_names on patients.province_id = province_names.province_id;            // Join table
+select count(birth_date) from patients where birth_date like '2010%';            // Count birthday 2010
+select first_name,last_name,Max(height) from patients;                           // Max height person  
+select * from patients where patient_id IN (1,45,534,879,1000);                  // Data of particular IDs
+select count(patient_id) from admissions;                                        // count no of patients
+select * from admissions where admission_date = discharge_date;                                                   // patients discharged on same day
+select patient_id,count(patient_id) from admissions where patient_id = 579;                                       // count and id for 579 id
+select Distinct city from patients where province_id = 'NS';                                                      //Distinct city in province
+select first_name,last_name,birth_date from patients where height > 160 and weight > 70;                          // Patients h>160 w>98
+select first_name,last_name,allergies from patients where city = 'Hamilton' and allergies is not null;            // Allergies not null onlt 
+select distinct city from patients where city like 'a%' or city like 'e%' or city like 'i%' or  city like 'o%'    // City like ascending distinct
+or city like 'u%' ORDER BY city ASC ;         
+select distinct Year(birth_date) from patients ORDER BY birth_date ASC ;                                          //date to year asc
+select first_name from patients group by first_name having count(*) = 1 ORDER BY birth_date ASC ;                 // Appear once only names
+select patient_id, first_name from patients where first_name like 's%____%s';                                     // min 6 starting s ending s 
+SELECT
+  patients.patient_id, first_name,last_name
+FROM patients
+  JOIN admissions ON admissions.patient_id = patients.patient_id
+WHERE diagnosis = 'Dementia';                                                //  JOINING TABLE AND FETVHING DATA
+SELECT * FROM patients     ORDER BY first_name ASC, last_name DESC;          // NAMES ASCENDING AND DESNDING
+SELECT first_name FROM patients ORDER BY len(first_name), first_name;        // order by length and alphabetical  
+SELECT   SUM(Gender = 'M') as male_count,   SUM(Gender = 'F') AS female_count FROM patients;                       // count male and female and dispaly AS
+SELECT count(first_name ) AS iNDIA from patients ;                                                   // count and dispaly AS COLUMN NEW NAME
+SELECT 
+  (SELECT count(*) FROM patients WHERE gender='M') AS male_count, 
+  (SELECT count(*) FROM patients WHERE gender='F') AS female_count;                                  // SELECT INSIDE SELECT 
+
+select 
+  sum(case when gender = 'M' then 1 end) as male_count,
+  sum(case when gender = 'F' then 1 end) as female_count 
+from patients;                                                           // CASE WHEN 
+
+select first_name,last_name,allergies from patients
+where allergies iN ('Penicillin', 'Morphine')
+order by allergies asc,
+         first_name,
+         last_name;                                                      //  CHOOSE FROM TWO ALTERNATE AND ORDER THEM 3 TIMES
+
+select patient_id,diagnosis from admissions
+group by diagnosis,
+         patient_id
+having count(*) >1;                                                     // GROUP BY COLUMNS AND APPEARING MULTIPLE TIMES
+
+
+select
+  city,
+  COUNT(*) as num_patients
+from patients
+group by city
+order by num_patients DESC, CITY ASC;                                  // city wise patients des                                        
+                     
+                                                                           
