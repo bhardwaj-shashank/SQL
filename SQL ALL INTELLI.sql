@@ -36,7 +36,7 @@ select * from student order by marks desc
 select * from student order by marks desc,age desc
 
 -- top 1 
-select top 1 * from student order by marks desc --top to bottom 
+select top 1 * from student order by marks desc --top to bottom gg
 select top 2 * from student order by age  
 select roll,sname, marks,states from student -- exclude student from CA
 where states !='CA'
